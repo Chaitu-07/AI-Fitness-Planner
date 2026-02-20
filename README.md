@@ -56,9 +56,6 @@ Activate it:
 **Windows**
 venv\Scripts\activate
 
-**Mac/Linux**
-source venv/bin/activate
-
 ---
 
 ### 2️⃣ Install Dependencies
@@ -67,18 +64,7 @@ pip install -r requirements.txt
 
 ---
 
-### 3️⃣ Add Gemini API Key
-
-Create a `.env` file:
-
-GEMINI_API_KEY=your_api_key_here
-
-Get your key from:
-https://aistudio.google.com/app/apikey
-
----
-
-### 4️⃣ Run the Application
+### 3️⃣ Run the Application
 
 streamlit run app.py
 
@@ -113,4 +99,5 @@ Unlike generic fitness apps, this system:
 * Visual analytics (calorie/macronutrient charts)
 
 ---
+
 
