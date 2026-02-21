@@ -8,7 +8,6 @@ from io import BytesIO
 def generate_pdf(user_data, bmi, calories, plan_text):
     buffer = BytesIO()
 
-    # Create document
     doc = SimpleDocTemplate(
         buffer,
         pagesize=pagesizes.A4,
@@ -18,7 +17,6 @@ def generate_pdf(user_data, bmi, calories, plan_text):
         bottomMargin=20
     )
 
-    # Styles
     title_style = ParagraphStyle(
         name="Title",
         fontSize=18,
@@ -43,12 +41,10 @@ def generate_pdf(user_data, bmi, calories, plan_text):
         leading=16
     )
 
-    # Build content
     elements = []
 
     elements.append(Paragraph("<b>Personalized Workout & Diet Plan</b>", title_style))
 
-    # User Summary Table
     user_table_data = [
         ["Age", user_data["age"]],
         ["Gender", user_data["gender"]],
@@ -63,16 +59,14 @@ def generate_pdf(user_data, bmi, calories, plan_text):
     elements.append(table)
     elements.append(Spacer(1, 20))
 
-    # AI Plan Section
     elements.append(Paragraph("<b>AI Generated Plan</b>", header_style))
 
-    # Convert text → paragraphs
     for line in plan_text.split("\n"):
         if line.strip():
             elements.append(Paragraph(line, normal_style))
 
-    # Build PDF
     doc.build(elements)
 
     buffer.seek(0)
+
     return buffer
