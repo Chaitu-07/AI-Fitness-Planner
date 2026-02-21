@@ -3,7 +3,6 @@ import streamlit as st
 from ai_engine import generate_plan
 from utils import calculate_bmi, calorie_estimator
 
-# ---------------- SESSION STATE INITIALIZATION ---------------- #
 
 if "plan" not in st.session_state:
     st.session_state.plan = None
@@ -17,14 +16,12 @@ if "bmi" not in st.session_state:
 if "calories" not in st.session_state:
     st.session_state.calories = None
 
-# ---------------- PAGE SETUP ---------------- #
 
 st.set_page_config(page_title="AI Fitness Planner")
 
 st.title("🏋️ Personalized Workout & Diet Planner (AI)")
 st.write("Built for Students — Budget Friendly & Practical")
 
-# ---------------- PERSONAL INFO (LIVE BMI) ---------------- #
 
 st.subheader("👤 Personal Info")
 
@@ -34,7 +31,6 @@ gender = st.selectbox("Gender", ["Male", "Female"])
 height = st.number_input("Height (cm)", 140, 210)
 weight = st.number_input("Weight (kg)", 40, 150)
 
-# ---- LIVE BMI DISPLAY ---- #
 if height > 0 and weight > 0:
     live_bmi = calculate_bmi(weight, height)
 
@@ -51,7 +47,6 @@ if height > 0 and weight > 0:
 
 st.divider()
 
-# ---------------- USER INPUT FORM ---------------- #
 
 with st.form("user_form"):
 
@@ -73,7 +68,6 @@ with st.form("user_form"):
 
     submitted = st.form_submit_button("Generate Plan")
 
-# ---------------- PROCESS USER INPUT ---------------- #
 
 if submitted:
     bmi = calculate_bmi(weight, height)
@@ -93,7 +87,6 @@ if submitted:
         "region": region
     }
 
-    # Save to session state
     st.session_state.user_data = user_data
     st.session_state.bmi = bmi
     st.session_state.calories = calories
@@ -101,7 +94,6 @@ if submitted:
     with st.spinner("AI is designing your personalized plan..."):
         st.session_state.plan = generate_plan(user_data)
 
-# ---------------- DISPLAY RESULTS ---------------- #
 
 if st.session_state.plan:
 
@@ -112,7 +104,6 @@ if st.session_state.plan:
     st.subheader("📋 Your Personalized Plan")
     st.write(st.session_state.plan)
 
-# ---------------- PDF DOWNLOAD ---------------- #
 
 if st.session_state.plan and st.session_state.user_data:
 
@@ -128,4 +119,5 @@ if st.session_state.plan and st.session_state.user_data:
         data=pdf_file,
         file_name="AI_Fitness_Plan.pdf",
         mime="application/pdf"
+
     )
