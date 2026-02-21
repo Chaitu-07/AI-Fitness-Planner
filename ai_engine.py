@@ -6,7 +6,6 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Use supported model
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 
@@ -40,5 +39,6 @@ Requirements:
 """
 
     response = model.generate_content(prompt)
+
 
     return response.text
